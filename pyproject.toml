@@ -1,0 +1,11 @@
+[project]
+name = "text-translator-server"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+    "fastapi>=0.136.1",
+    "ollama>=0.6.2",
+    "uvicorn>=0.47.0",
+]

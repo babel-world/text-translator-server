@@ -1,0 +1,9 @@
+# Python / uv virtual environment
+.venv/
+
+# Python bytecode and cache directories
+src/__pycache__/
+**/__pycache__/
+
+# Local-only notes and drafts (not tracked)
+private-docs/
