@@ -28,3 +28,26 @@ uv run python -m uvicorn text_translator_server.main:app --reload
 ```
 
 The API will now be available locally (default: `http://127.0.0.1:8000`).
+
+## Project Structure
+
+```text
+text-translator-server/
+├── pyproject.toml
+├── README.md
+├── src/
+│   └── text_translator_server/
+│       ├── api/
+│       │   ├── deps.py
+│       │   ├── router.py
+│       │   └── routes/
+│       │       └── translate.py
+│       ├── config/
+│       │   └── settings.py
+│       ├── main.py
+│       ├── schemas/
+│       │   └── translate.py
+│       └── services/
+│           └── translate.py
+└── uv.lock
+```
