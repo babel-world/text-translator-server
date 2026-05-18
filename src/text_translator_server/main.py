@@ -16,5 +16,10 @@ async def lifespan(app: FastAPI):
         await client._client.aclose()
 
 
-app = FastAPI(lifespan=lifespan)
+app = FastAPI(
+    title="My Babel Text Translator",
+    description="A simple, self-hosted text translation API powered by Ollama and translategemma.",
+    version="0.1.0",
+    lifespan=lifespan,
+)
 app.include_router(create_api_router())
