@@ -1,9 +1,24 @@
 [project]
 name = "text-translator-server"
 version = "0.1.0"
-description = ""
+description = "A local, multi-language text translation API powered by Ollama and FastAPI."
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
+authors = [
+    { name = "MatsubaraSoda", url = "https://github.com/MatsubaraSoda" },
+]
+license = { text = "MIT" }
+keywords = ["translation", "nlp", "ollama", "fastapi", "llm", "local-ai"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Internet :: WWW/HTTP :: HTTP Servers",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Linguistic",
+]
 dependencies = [
     "fastapi>=0.136.1",
     "ollama>=0.6.2",
