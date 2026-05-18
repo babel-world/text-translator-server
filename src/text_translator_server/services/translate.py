@@ -7,8 +7,6 @@ from text_translator_server.config.settings import (
     TRANSLATE_PROMPT,
 )
 
-client = AsyncClient(host="http://127.0.0.1:11434")
-
 
 def _build_prompt(source: LANG_CODE, target: LANG_CODE, text: str) -> str:
     return TRANSLATE_PROMPT.format(
@@ -20,7 +18,12 @@ def _build_prompt(source: LANG_CODE, target: LANG_CODE, text: str) -> str:
     )
 
 
-async def translate(source: LANG_CODE, target: LANG_CODE, text: str) -> str:
+async def translate(
+    client: AsyncClient,
+    source: LANG_CODE,
+    target: LANG_CODE,
+    text: str,
+) -> str:
     response = await client.chat(
         model=TRANSLATE_MODEL,
         messages=[{"role": "user", "content": _build_prompt(source, target, text)}],
