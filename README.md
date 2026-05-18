@@ -24,7 +24,7 @@ Before running the server, ensure you have the following ready:
 
 ```bash
 uv sync
-uv run uvicorn src.main:app --reload
+uv run python -m uvicorn text_translator_server.main:app --reload
 ```
 
 The API will now be available locally (default: `http://127.0.0.1:8000`).

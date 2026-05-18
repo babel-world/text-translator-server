@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
-from src.config.index import LANG_CODE
+from text_translator_server.config.index import LANG_CODE
 
 
 class TranslateRequestBody(BaseModel):

@@ -2,8 +2,11 @@
 .venv/
 
 # Python bytecode and cache directories
-src/__pycache__/
 **/__pycache__/
+
+# Build artifacts
+dist/
+*.egg-info/
 
 # Local-only notes and drafts (not tracked)
 private-docs/
