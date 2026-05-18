@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from .routes.translate import router as translate_router
+from text_translator_server.api.routes.translate import router as translate_router
 
 
 def create_api_router() -> APIRouter:
