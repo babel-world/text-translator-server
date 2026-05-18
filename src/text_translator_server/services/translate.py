@@ -3,9 +3,20 @@ from ollama import AsyncClient
 from text_translator_server.config.settings import (
     LANG_CODE,
     LANG_NAMES,
+    TEXT_END_MARKER,
+    TEXT_START_MARKER,
     TRANSLATE_MODEL,
     TRANSLATE_PROMPT,
 )
+
+
+def _sanitize_user_text(text: str) -> str:
+    # Defuse any boundary marker the user might inject to "break out" of the
+    # content section. Replacing with a visually similar but inert variant
+    # preserves the user's intent without exposing the real markers.
+    return text.replace(TEXT_END_MARKER, "<< END >>").replace(
+        TEXT_START_MARKER, "<< TEXT >>"
+    )
 
 
 def _build_prompt(source: LANG_CODE, target: LANG_CODE, text: str) -> str:
@@ -14,7 +25,9 @@ def _build_prompt(source: LANG_CODE, target: LANG_CODE, text: str) -> str:
         SOURCE_CODE=source,
         TARGET_LANG=LANG_NAMES[target],
         TARGET_CODE=target,
-        TEXT=text,
+        START_MARKER=TEXT_START_MARKER,
+        END_MARKER=TEXT_END_MARKER,
+        TEXT=_sanitize_user_text(text),
     )
 
 
