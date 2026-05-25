@@ -24,10 +24,10 @@ Before running the server, ensure you have the following ready:
 
 ```bash
 uv sync
-uv run text_translator_server
+uv run text-translator-server
 ```
 
-The API will now be available locally (default: `http://127.0.0.1:8000`).
+The API will now be available locally (default: `http://127.0.0.1:19032`).
 
 ## Project Structure
 

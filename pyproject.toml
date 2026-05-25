@@ -27,7 +27,7 @@ dependencies = [
 ]
 
 [project.scripts]
-text_translator_server = "text_translator_server.main:run"
+text-translator-server = "text_translator_server.main:run"
 
 [build-system]
 requires = ["hatchling"]

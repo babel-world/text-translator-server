@@ -31,7 +31,7 @@ def run():
     CLI entrypoint.
     """
     uvicorn.run(
-        "text_translator_server.main:app", host="127.0.0.1", port=8000, reload=True
+        "text_translator_server.main:app", host="127.0.0.1", port=19032, reload=True
     )
 
 
