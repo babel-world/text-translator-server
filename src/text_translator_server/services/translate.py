@@ -45,3 +45,7 @@ async def translate(
     translated_text = (response.message.content or "").strip()
 
     return translated_text
+
+
+async def stop_model(client: AsyncClient) -> None:
+    await client.generate(model=TRANSLATE_MODEL, keep_alive=0)
