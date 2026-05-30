@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from ollama import AsyncClient
 
 from text_translator_server.api.router import create_api_router
+from text_translator_server.services.translate import stop_model
 
 
 @asynccontextmanager
@@ -14,6 +15,10 @@ async def lifespan(app: FastAPI):
     try:
         yield
     finally:
+        try:
+            await stop_model(client)
+        except Exception:
+            pass
         await client._client.aclose()
 
 
