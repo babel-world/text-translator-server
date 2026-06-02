@@ -1,13 +1,13 @@
 """
-Simple load test for the translation API.
+Simple load test for the Ollama translation API.
 
 Prerequisites:
   1. Ollama is running with translategemma pulled
   2. Server is running: uv run text-translator-server
 
 Usage:
-  uv run python scripts/load_test.py
-  uv run python scripts/load_test.py --base-url http://127.0.0.1:19032
+  uv run python scripts/load_ollama_test.py
+  uv run python scripts/load_ollama_test.py --base-url http://127.0.0.1:19032
 
 Sample results (2026-05-25, local Ollama + translategemma, after /start warmup):
   min/avg/max are per-request round-trip times, not total batch duration.
@@ -47,7 +47,7 @@ TRANSLATE_PAYLOAD = {
 
 
 async def warmup(client: httpx.AsyncClient) -> None:
-    response = await client.post("/api/translate/start")
+    response = await client.post("/api/ollama/start")
     if response.status_code != 200:
         raise RuntimeError(
             f"start failed: HTTP {response.status_code}, body={response.text}"
@@ -60,7 +60,7 @@ async def warmup(client: httpx.AsyncClient) -> None:
 
 async def translate_once(client: httpx.AsyncClient, index: int) -> float:
     start = time.perf_counter()
-    response = await client.post("/api/translate", json=TRANSLATE_PAYLOAD)
+    response = await client.post("/api/ollama/translate", json=TRANSLATE_PAYLOAD)
     elapsed = time.perf_counter() - start
 
     if response.status_code != 200:
@@ -97,7 +97,7 @@ def print_summary(concurrency: int, elapsed_times: list[float]) -> None:
 async def main(base_url: str) -> None:
     async with httpx.AsyncClient(base_url=base_url, timeout=REQUEST_TIMEOUT) as client:
         print(f"Base URL: {base_url}")
-        print("Warming up model via POST /api/translate/start ...")
+        print("Warming up model via POST /api/ollama/start ...")
         await warmup(client)
         print("Warmup OK.\n")
 
@@ -110,7 +110,7 @@ async def main(base_url: str) -> None:
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Load test for text-translator-server")
+    parser = argparse.ArgumentParser(description="Load test for Ollama translation API")
     parser.add_argument(
         "--base-url",
         default=BASE_URL,

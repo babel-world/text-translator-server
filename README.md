@@ -41,13 +41,13 @@ text-translator-server/
 │       │   ├── deps.py
 │       │   ├── router.py
 │       │   └── routes/
-│       │       └── translate.py
+│       │       └── ollama.py
 │       ├── config/
 │       │   └── settings.py
 │       ├── main.py
 │       ├── schemas/
 │       │   └── translate.py
 │       └── services/
-│           └── translate.py
+│           └── ollama.py
 └── uv.lock
 ```

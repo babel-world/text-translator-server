@@ -3,16 +3,16 @@ from ollama import AsyncClient
 
 from text_translator_server.api.deps import get_ollama_client
 from text_translator_server.schemas.translate import TranslateRequestBody, TranslateResponseBody
-from text_translator_server.services.translate import start_model
-from text_translator_server.services.translate import stop_model
-from text_translator_server.services.translate import translate as translate_service
+from text_translator_server.services.ollama import start_model
+from text_translator_server.services.ollama import stop_model
+from text_translator_server.services.ollama import translate as translate_service
 
 
-router = APIRouter(prefix="/translate", tags=["translate"])
+router = APIRouter(prefix="/ollama", tags=["ollama"])
 
 
 @router.post(
-    "",
+    "/translate",
     response_model=TranslateResponseBody,
     response_model_by_alias=True,
     summary="Translate Text",

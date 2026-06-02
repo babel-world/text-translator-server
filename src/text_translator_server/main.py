@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from ollama import AsyncClient
 
 from text_translator_server.api.router import create_api_router
-from text_translator_server.services.translate import stop_model
+from text_translator_server.services.ollama import stop_model
 
 
 @asynccontextmanager
