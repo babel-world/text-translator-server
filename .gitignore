@@ -10,3 +10,6 @@ dist/
 
 # Local-only notes and drafts (not tracked)
 private-docs/
+
+# Environment variables
+.env

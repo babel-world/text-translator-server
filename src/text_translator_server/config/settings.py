@@ -1,4 +1,8 @@
+import os
 from typing import Final, Literal
+from dotenv import load_dotenv
+
+load_dotenv()
 
 type LangCode = Literal["zh", "en", "ja"]
 
@@ -20,5 +24,6 @@ Produce only the {TARGET_LANG} translation, without any additional explanations 
 {END_MARKER}
 """
 
-TRANSLATE_MODEL = "translategemma:latest"
+OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "translategemma:latest")
+SERVER_PORT = int(os.getenv("SERVER_PORT", "19032"))
 MODEL_KEEP_ALIVE = -1

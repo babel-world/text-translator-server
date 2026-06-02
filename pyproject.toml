@@ -23,6 +23,7 @@ dependencies = [
     "fastapi>=0.136.1",
     "ollama>=0.6.2",
     "pydantic>=2.13.4",
+    "python-dotenv>=1.2.2",
     "uvicorn>=0.47.0",
 ]
 
