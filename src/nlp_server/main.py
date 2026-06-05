@@ -4,9 +4,9 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from ollama import AsyncClient
 
-from text_translator_server.api.router import create_api_router
-from text_translator_server.config.settings import SERVER_PORT
-from text_translator_server.services.ollama import stop_model
+from nlp_server.api.router import create_api_router
+from nlp_server.config.settings import SERVER_PORT
+from nlp_server.services.ollama import stop_model
 
 
 @asynccontextmanager
@@ -37,7 +37,7 @@ def run():
     CLI entrypoint.
     """
     uvicorn.run(
-        "text_translator_server.main:app",
+        "nlp_server.main:app",
         host="127.0.0.1",
         port=SERVER_PORT,
         reload=True,

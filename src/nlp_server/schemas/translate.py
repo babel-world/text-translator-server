@@ -1,7 +1,7 @@
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic.alias_generators import to_camel
 
-from text_translator_server.config.settings import LangCode
+from nlp_server.config.settings import LangCode
 
 
 class TranslateRequestBody(BaseModel):

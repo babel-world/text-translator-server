@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends
 from ollama import AsyncClient
 
-from text_translator_server.api.deps import get_ollama_client
-from text_translator_server.schemas.translate import TranslateRequestBody, TranslateResponseBody
-from text_translator_server.services.ollama import start_model
-from text_translator_server.services.ollama import stop_model
-from text_translator_server.services.ollama import translate as translate_service
+from nlp_server.api.deps import get_ollama_client
+from nlp_server.schemas.translate import TranslateRequestBody, TranslateResponseBody
+from nlp_server.services.ollama import start_model
+from nlp_server.services.ollama import stop_model
+from nlp_server.services.ollama import translate as translate_service
 
 
 router = APIRouter(prefix="/ollama", tags=["ollama"])

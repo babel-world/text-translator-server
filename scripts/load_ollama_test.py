@@ -3,7 +3,7 @@ Simple load test for the Ollama translation API.
 
 Prerequisites:
   1. Ollama is running with translategemma pulled
-  2. Server is running: uv run text-translator-server
+  2. Server is running: uv run nlp-server
 
 Usage:
   uv run python scripts/load_ollama_test.py

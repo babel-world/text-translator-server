@@ -1,6 +1,6 @@
 from ollama import AsyncClient
 
-from text_translator_server.config.settings import (
+from nlp_server.config.settings import (
     LangCode,
     LANG_NAMES,
     MODEL_KEEP_ALIVE,

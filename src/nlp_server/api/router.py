@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from text_translator_server.api.routes.ollama import router as ollama_router
+from nlp_server.api.routes.ollama import router as ollama_router
 
 
 def create_api_router() -> APIRouter:

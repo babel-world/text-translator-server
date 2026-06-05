@@ -1,4 +1,4 @@
-# Text Translator Server
+# NLP Server
 
 A local, multi-language text translation API powered by Ollama and FastAPI.
 
@@ -40,7 +40,7 @@ You can specify which downloaded model the server should use by creating a `.env
 
 ```bash
 uv sync
-uv run text-translator-server
+uv run nlp-server
 ```
 
 The API will now be available locally (default: `http://127.0.0.1:19032`, or the port set in `SERVER_PORT`).
@@ -48,13 +48,13 @@ The API will now be available locally (default: `http://127.0.0.1:19032`, or the
 ## Project Structure
 
 ```text
-text-translator-server/
+nlp-server/
 ├── pyproject.toml
 ├── README.md
 ├── scripts/
 │   └── load_ollama_test.py
 ├── src/
-│   └── text_translator_server/
+│   └── nlp_server/
 │       ├── api/
 │       │   ├── deps.py
 │       │   ├── router.py
