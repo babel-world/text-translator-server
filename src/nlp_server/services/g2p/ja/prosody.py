@@ -1,9 +1,7 @@
-"""从全语境标签提取日语音素与韵律符号（`[` `]` `#` 等）。
+"""Extract Japanese phonemes with prosody markers via OpenJTalk full-context labels.
 
-算法源自 ESPnet phoneme_tokenizer.py 的 pyopenjtalk_g2p_prosody：
+Algorithm from ESPnet phoneme_tokenizer.py pyopenjtalk_g2p_prosody:
 https://github.com/espnet/espnet/blob/master/espnet2/text/phoneme_tokenizer.py
-
-依赖 pyopenjtalk-plus 提供 OpenJTalk 前端。
 """
 
 import re
@@ -19,15 +17,7 @@ def _numeric_feature_by_regex(regex: str, s: str) -> int:
 
 
 def extract_prosody(text: str, drop_unvoiced_vowels: bool = True) -> list[str]:
-    """从日语文本提取音素序列，并插入韵律标记。
-
-    Args:
-        text: 日语文本（建议含句读如 。 以得到 sil 边界）
-        drop_unvoiced_vowels: 将无声音素 AEIOU 转为小写
-
-    Returns:
-        音素与韵律符号列表，例如 ['^', 'k', 'o', '[', 'N', 'n', 'i', 'ch', 'i', 'w', 'a', '$']
-    """
+    """Extract phoneme sequence with prosody symbols (^ $ # [ ] _ etc.)."""
     labels = pyopenjtalk.extract_fullcontext(text)
     n_labels = len(labels)
     phones: list[str] = []

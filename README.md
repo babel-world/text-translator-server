@@ -45,57 +45,46 @@ uv run nlp-server
 
 The API will now be available locally (default: `http://127.0.0.1:19032`, or the port set in `SERVER_PORT`).
 
-## G2P CSV Endpoint
+## G2P Japanese Endpoint
 
-Convert a manifest CSV (ASR output) into a G2P-enriched CSV for GPT-SoVITS training preparation.
+Convert Japanese text to phonemes via OpenJTalk (`pyopenjtalk-plus`).
 
-### Input CSV Schema
+### Request
 
-```csv
-filename,speaker,language,text,probability
+```json
+{
+  "text": "こんにちは。",
+  "mode": "default"
+}
 ```
 
-Example: `.local/manbo_manifest.csv`
+- `mode`: `default` (basic `pyopenjtalk.g2p`) or `prosody` (with `^` `$` `[` `]` etc.)
 
-### Output CSV Schema
+### Response
 
-Original columns are preserved. These columns are appended:
-
-```csv
-filename,speaker,language,text,probability,norm_text,phones,phone_count,word2ph,status,error
+```json
+{
+  "phones": ["k", "o", "N", "n", "i", "ch", "i", "w", "a"]
+}
 ```
-
-- `norm_text`: normalized text before G2P
-- `phones`: space-separated phoneme sequence compatible with `symbols2.py`
-- `phone_count`: number of phoneme tokens
-- `word2ph`: fixed to `None` for Japanese
-- `status`: `ok` / `skip` / `error`
-- `error`: failure reason when not `ok`
-
-### Privacy Preprocessing (Hard-coded)
-
-Each row is filtered before G2P:
-
-- `language` must be `ja`
-- `probability` must be **greater than** `0.95`
-
-Rows that fail privacy checks are kept in output with `status=skip`.
 
 ### API Usage
 
 ```bash
-curl -X POST "http://127.0.0.1:19032/api/g2p/csv" \
-  -F "file=@.local/manbo_manifest.csv" \
-  -o .local/manbo_manifest_g2p.csv
+curl -X POST "http://127.0.0.1:19032/api/g2p/ja" \
+  -H "Content-Type: application/json" \
+  -d "{\"text\":\"こんにちは。\",\"mode\":\"default\"}"
 ```
 
 ### Local Script Test
 
 ```bash
-uv run python scripts/test_g2p_csv.py
-uv run python scripts/test_g2p_csv.py --input .local/manbo_manifest.csv --output .local/manbo_manifest_g2p.csv
-uv run python scripts/test_g2p_csv.py --mode http --base-url http://127.0.0.1:19032
+uv run python scripts/test_g2p_ja.py
+uv run python scripts/test_g2p_ja.py --mode prosody
+uv run python scripts/test_g2p_ja.py --run http --base-url http://127.0.0.1:19032
 ```
+
+GPT-SoVITS manifest CSV 胶水代码已归档至 `.local/g2p/`，由外部 Prefect 项目负责。
 
 ## Project Structure
 
@@ -105,8 +94,7 @@ nlp-server/
 ├── README.md
 ├── scripts/
 │   ├── load_ollama_test.py
-│   ├── test_g2p_prosody.py
-│   └── test_g2p_csv.py
+│   └── test_g2p_ja.py
 ├── src/
 │   └── nlp_server/
 │       ├── api/
@@ -123,15 +111,11 @@ nlp-server/
 │       │   └── translate.py
 │       └── services/
 │           ├── g2p/
-│           │   ├── constants/
-│           │   │   └── symbols2.py
-│           │   ├── utils/
-│           │   │   ├── prosody_g2p.py
-│           │   │   └── symbol_alignment.py
-│           │   ├── csv_batch.py
-│           │   ├── japanese.py
-│           │   ├── normalize.py
-│           │   └── validation.py
+│           │   ├── ja/
+│           │   │   ├── default.py
+│           │   │   └── prosody.py
+│           │   ├── README.md
+│           │   └── __init__.py
 │           └── ollama.py
 └── uv.lock
 ```

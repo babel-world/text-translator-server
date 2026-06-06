@@ -1,25 +1,43 @@
-from typing import Final, Literal
+from typing import Literal
 
-G2pStatus = Literal["ok", "skip", "error"]
+from pydantic import BaseModel, ConfigDict, Field
+from pydantic.alias_generators import to_camel
 
-INPUT_COLUMNS: Final[tuple[str, ...]] = (
-    "filename",
-    "speaker",
-    "language",
-    "text",
-    "probability",
-)
+JaG2pMode = Literal["default", "prosody"]
 
-G2P_COLUMNS: Final[tuple[str, ...]] = (
-    "norm_text",
-    "phones",
-    "phone_count",
-    "word2ph",
-    "status",
-    "error",
-)
 
-OUTPUT_COLUMNS: Final[tuple[str, ...]] = INPUT_COLUMNS + G2P_COLUMNS
+class JaG2pRequestBody(BaseModel):
+    model_config = ConfigDict(
+        populate_by_name=True,
+        alias_generator=to_camel,
+        json_schema_extra={
+            "examples": [
+                {
+                    "text": "こんにちは。",
+                    "mode": "default",
+                }
+            ]
+        },
+    )
 
-PRIVACY_ALLOWED_LANGUAGE: Final[str] = "ja"
-PRIVACY_MIN_PROBABILITY: Final[float] = 0.95
+    text: str = Field(min_length=1, description="Japanese text to convert to phonemes")
+    mode: JaG2pMode = Field(
+        default="default",
+        description="G2P mode: default (basic phonemes) or prosody (with ^ $ [ ] etc.)",
+    )
+
+
+class JaG2pResponseBody(BaseModel):
+    model_config = ConfigDict(
+        populate_by_name=True,
+        alias_generator=to_camel,
+        json_schema_extra={
+            "examples": [
+                {
+                    "phones": ["k", "o", "N", "n", "i", "ch", "i", "w", "a"],
+                }
+            ]
+        },
+    )
+
+    phones: list[str] = Field(description="Phoneme token list")
