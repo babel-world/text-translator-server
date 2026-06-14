@@ -10,3 +10,7 @@ dist/
 
 # Environment variables
 .env
+
+# Worker model caches (per worker sub-project)
+.models/
+workers/**/.venv/

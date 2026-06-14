@@ -1,0 +1,19 @@
+# Worker registry — each [alias] table registers one uv sub-project under workers/.
+#
+# Required fields:
+#   path = "<relative path under workers/>"   # must contain pyproject.toml
+#   cli  = "<script name from [project.scripts]>"
+#
+# Optional fields:
+#   source, repo_id, description  — documentation only
+#   timeout_sec                   — request timeout (default: 120)
+#
+# Example (uncomment and create the worker project to enable):
+#
+# [my-worker]
+# source = "huggingface"
+# repo_id = "MyOrg/my-model"
+# path = "huggingface/MyOrg/my-worker"
+# cli = "my-worker"
+# description = "Example worker scaffold"
+# timeout_sec = 120
