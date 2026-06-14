@@ -1,0 +1,34 @@
+# vendor/g2pw — upstream inference package (vendored, not published to PyPI).
+#
+# Source: https://github.com/GitYCC/g2pW  (GitYCC/g2pW, INTERSPEECH 2022)
+# Upstream entry: g2pw/api.py  (G2PWConverter, ONNX inference)
+# Copied from the official repo release / master g2pw/ package; training scripts
+# (scripts/, g2pw/module.py) are kept only as reference and are not used at runtime.
+#
+# Runtime loads vendor/g2pw via sys.path (see g2pw_worker/runtime.py).
+# Do not edit vendor/ for worker wiring — change src/g2pw_worker/ instead.
+
+[project]
+name = "g2pw"
+version = "0.1.0"
+description = "Chinese G2P inference worker (g2pW ONNX; vendor from GitYCC/g2pW)"
+requires-python = ">=3.10,<3.11"
+dependencies = [
+    "numpy>=1.26.0",
+    "onnxruntime>=1.16.0",
+    "requests>=2.31.0",
+    "torch>=2.1.0,<2.5",
+    "tqdm>=4.66.0",
+    "transformers>=4.30.0,<5",
+]
+
+[project.scripts]
+g2pw = "g2pw_worker.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.11.14,<0.12.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = "src"
+module-name = "g2pw_worker"

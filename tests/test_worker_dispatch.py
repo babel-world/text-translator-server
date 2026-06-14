@@ -62,8 +62,8 @@ class WorkerConfigTests(unittest.TestCase):
     def tearDown(self) -> None:
         clear_worker_config_cache()
 
-    def test_registry_starts_empty(self) -> None:
-        self.assertEqual(list_worker_aliases(), [])
+    def test_registry_contains_g2pw(self) -> None:
+        self.assertIn("g2pw", list_worker_aliases())
 
     def test_default_timeout_is_120(self) -> None:
         with patch.dict(os.environ, {}, clear=True):

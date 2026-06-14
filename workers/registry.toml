@@ -6,14 +6,14 @@
 #
 # Optional fields:
 #   source, repo_id, description  — documentation only
+#   models_dir                    — local .models/ folder name at worker project root
 #   timeout_sec                   — request timeout (default: 120)
-#
-# Example (uncomment and create the worker project to enable):
-#
-# [my-worker]
-# source = "huggingface"
-# repo_id = "MyOrg/my-model"
-# path = "huggingface/MyOrg/my-worker"
-# cli = "my-worker"
-# description = "Example worker scaffold"
-# timeout_sec = 120
+
+[g2pw]
+source = "github"
+repo_id = "GitYCC/g2pW"
+path = "github/gitycc/g2pw"
+cli = "g2pw"
+models_dir = "G2PWModel-v2-onnx"
+description = "Chinese G2P inference (g2pW ONNX)"
+timeout_sec = 120
